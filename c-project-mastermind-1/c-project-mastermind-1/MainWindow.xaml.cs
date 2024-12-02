@@ -275,6 +275,5 @@ namespace c_project_mastermind_1
                 Application.Current.Shutdown();
             }
         }
-
     }
 }
