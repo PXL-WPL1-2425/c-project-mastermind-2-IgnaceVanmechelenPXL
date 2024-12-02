@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:c_project_mastermind_1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800" KeyDown="ToggleDebug">
+        Title="MainWindow" Height="600" Width="800" KeyDown="ToggleDebug" Closing="WindowClosed">
     <Grid>
         <ComboBox Name="comboBoxOne" HorizontalAlignment="Left" Margin="40,40,0,0" VerticalAlignment="Top" Width="180" Height="30" SelectionChanged="ComboBox_SelectionChanged"/>
         <ComboBox Name="comboBoxTwo" HorizontalAlignment="Left" Margin="220,40,0,0" VerticalAlignment="Top" Width="180" Height="30" SelectionChanged="ComboBox_SelectionChanged"/>

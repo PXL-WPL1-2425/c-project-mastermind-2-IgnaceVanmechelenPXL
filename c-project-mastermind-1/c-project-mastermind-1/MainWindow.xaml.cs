@@ -262,5 +262,19 @@ namespace c_project_mastermind_1
             Title = $"MasterMind - poging {attempts}/{maxAttemps}";
             timer.Start();
         }
+        private void WindowClosed(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var result = MessageBox.Show("Weet je zeker dat je het spel wilt afsluiten? Je verliest je voortgang.",
+                                         "Bevestigen", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.No)
+            {
+                e.Cancel = true;
+            }
+            else
+            {
+                Application.Current.Shutdown();
+            }
+        }
+
     }
 }
