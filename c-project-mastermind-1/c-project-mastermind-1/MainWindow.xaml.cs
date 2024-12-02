@@ -112,6 +112,8 @@ namespace c_project_mastermind_1
             if (attempts <= maxAttemps)
             {
                 StringBuilder feedback = new StringBuilder();
+                bool codeCracked = true;
+
                 for (int i = 0; i < userColors.Count; i++)
                 {
                     if (userColors[i] == secretCode[i])
@@ -123,24 +125,95 @@ namespace c_project_mastermind_1
                     {
                         feedback.Append($"{userColors[i]} (W) ");
                         SetLabelBorder(i, Colors.Wheat);
-                        score = score + 1;
+                        score += 1;
+                        codeCracked = false;
                     }
                     else
                     {
                         feedback.Append($"{userColors[i]} (-) ");
-                        score = score + 2;
+                        score += 2;
+                        codeCracked = false;
                     }
                 }
+
                 scoreLabel.Content = $"Score: {score}";
                 string attemptFeedback = $"poging {attempts}: {feedback}";
                 attemptsListBox.Items.Add(attemptFeedback);
+
+                if (codeCracked)
+                {
+                    MessageBox.Show("Gefeliciteerd! Je hebt de code gekraakt!");
+                    AskToPlayAgain();
+                }
             }
             else
             {
-                MessageBox.Show("Game over! je hebt de code niet gevonden binnen 10 pogingen");
+                MessageBox.Show($"Game over! Je hebt de code niet gekraakt binnen 10 pogingen. De code was: {string.Join(", ", secretCode)}");
+                AskToPlayAgain();
             }
         }
-            private void SetLabelBorder(int index, Color borderColor)
+
+        private void AskToPlayAgain()
+        {
+            var result = MessageBox.Show("Wil je nog een keer spelen?", "Opnieuw spelen?", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                ResetGame();
+            }
+            else
+            {
+                Application.Current.Shutdown();
+            }
+        }
+
+        private void ResetGame()
+        {
+            attempts = 0;
+            score = 0;
+            scoreLabel.Content = "Score: 0";
+
+            attemptsListBox.Items.Clear();
+
+            secretCode.Clear();
+            string randomColorOne = GenerateRandomColor();
+            string randomColorTwo = GenerateRandomColor();
+            string randomColorThree = GenerateRandomColor();
+            string randomColorFour = GenerateRandomColor();
+
+            secretCode.Add(randomColorOne);
+            secretCode.Add(randomColorTwo);
+            secretCode.Add(randomColorThree);
+            secretCode.Add(randomColorFour);
+
+            comboBoxOne.SelectedItem = null;
+            comboBoxTwo.SelectedItem = null;
+            comboBoxThree.SelectedItem = null;
+            comboBoxFour.SelectedItem = null;
+
+            labelOne.Background = Brushes.Transparent;
+            labelTwo.Background = Brushes.Transparent;
+            labelThree.Background = Brushes.Transparent;
+            labelFour.Background = Brushes.Transparent;
+
+            labelOne.BorderBrush = Brushes.Transparent;
+            labelTwo.BorderBrush = Brushes.Transparent;
+            labelThree.BorderBrush = Brushes.Transparent;
+            labelFour.BorderBrush = Brushes.Transparent;
+
+            labelOne.BorderThickness = new Thickness(1);
+            labelTwo.BorderThickness = new Thickness(1);
+            labelThree.BorderThickness = new Thickness(1);
+            labelFour.BorderThickness = new Thickness(1);
+
+            labelOne.Content = "";
+            labelTwo.Content = "";
+            labelThree.Content = "";
+            labelFour.Content = "";
+
+            Title = $"MasterMind - poging {attempts}/{maxAttemps}";
+            StartCountdown();
+        }
+        private void SetLabelBorder(int index, Color borderColor)
         {
             SolidColorBrush brush = new SolidColorBrush(borderColor);
             switch (index)
