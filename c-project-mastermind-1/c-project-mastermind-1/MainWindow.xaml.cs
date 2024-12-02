@@ -23,6 +23,7 @@ namespace c_project_mastermind_1
         private string randomColor;
         int attempts;
         int maxAttemps = 10;
+        int score = 0;
         string[] colors = { "Red", "Yellow", "Orange", "White", "Green", "Blue" };
         List<string> secretCode = new List<string>();
         private DispatcherTimer timer = new DispatcherTimer();
@@ -122,12 +123,15 @@ namespace c_project_mastermind_1
                     {
                         feedback.Append($"{userColors[i]} (W) ");
                         SetLabelBorder(i, Colors.Wheat);
+                        score = score + 1;
                     }
                     else
                     {
                         feedback.Append($"{userColors[i]} (-) ");
+                        score = score + 2;
                     }
                 }
+                scoreLabel.Content = $"Score: {score}";
                 string attemptFeedback = $"poging {attempts}: {feedback}";
                 attemptsListBox.Items.Add(attemptFeedback);
             }
