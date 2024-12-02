@@ -142,13 +142,13 @@ namespace c_project_mastermind_1
 
                 if (codeCracked)
                 {
-                    MessageBox.Show("Gefeliciteerd! Je hebt de code gekraakt!");
+                    MessageBox.Show("Gefeliciteerd! Je hebt de code gekraakt!", "je hebt gewonnen!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     AskToPlayAgain();
                 }
             }
             else
             {
-                MessageBox.Show($"Game over! Je hebt de code niet gekraakt binnen 10 pogingen. De code was: {string.Join(", ", secretCode)}");
+                MessageBox.Show($"Game over! Je hebt de code niet gekraakt binnen 10 pogingen. De code was: {string.Join(", ", secretCode)}", "Game over!", MessageBoxButton.OK, MessageBoxImage.Error);
                 AskToPlayAgain();
             }
         }
@@ -265,7 +265,7 @@ namespace c_project_mastermind_1
         private void WindowClosed(object sender, System.ComponentModel.CancelEventArgs e)
         {
             var result = MessageBox.Show("Weet je zeker dat je het spel wilt afsluiten? Je verliest je voortgang.",
-                                         "Bevestigen", MessageBoxButton.YesNo);
+                                         "Bevestigen", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.No)
             {
                 e.Cancel = true;
