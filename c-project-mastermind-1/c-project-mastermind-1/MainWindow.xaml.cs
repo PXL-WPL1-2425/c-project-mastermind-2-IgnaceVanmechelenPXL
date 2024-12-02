@@ -110,24 +110,33 @@ namespace c_project_mastermind_1
             userColors.Add(comboBoxFour.SelectedItem?.ToString());
             if (attempts <= maxAttemps)
             {
+                StringBuilder feedback = new StringBuilder();
                 for (int i = 0; i < userColors.Count; i++)
                 {
                     if (userColors[i] == secretCode[i])
                     {
+                        feedback.Append($"{userColors[i]} (R) ");
                         SetLabelBorder(i, Colors.DarkRed);
                     }
                     else if (secretCode.Contains(userColors[i]))
                     {
+                        feedback.Append($"{userColors[i]} (W) ");
                         SetLabelBorder(i, Colors.Wheat);
                     }
+                    else
+                    {
+                        feedback.Append($"{userColors[i]} (-) ");
+                    }
                 }
+                string attemptFeedback = $"poging {attempts}: {feedback}";
+                attemptsListBox.Items.Add(attemptFeedback);
             }
             else
             {
                 MessageBox.Show("Game over! je hebt de code niet gevonden binnen 10 pogingen");
             }
         }
-        private void SetLabelBorder(int index, Color borderColor)
+            private void SetLabelBorder(int index, Color borderColor)
         {
             SolidColorBrush brush = new SolidColorBrush(borderColor);
             switch (index)
@@ -173,7 +182,7 @@ namespace c_project_mastermind_1
         {
             timer.Stop();
             attempts++;
-            Title = $"MasterMind - poging {attempts}";
+            Title = $"MasterMind - poging {attempts}/{maxAttemps}";
             timer.Start();
         }
     }
