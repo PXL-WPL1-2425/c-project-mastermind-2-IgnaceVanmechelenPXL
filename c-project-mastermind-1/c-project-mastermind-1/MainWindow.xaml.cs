@@ -22,6 +22,7 @@ namespace c_project_mastermind_1
         private int randomIndex;
         private string randomColor;
         int attempts;
+        int maxAttemps = 10;
         string[] colors = { "Red", "Yellow", "Orange", "White", "Green", "Blue" };
         List<string> secretCode = new List<string>();
         private DispatcherTimer timer = new DispatcherTimer();
@@ -107,17 +108,23 @@ namespace c_project_mastermind_1
             userColors.Add(comboBoxTwo.SelectedItem?.ToString());
             userColors.Add(comboBoxThree.SelectedItem?.ToString());
             userColors.Add(comboBoxFour.SelectedItem?.ToString());
-
-            for (int i = 0; i < userColors.Count; i++)
+            if (attempts <= maxAttemps)
             {
-                if (userColors[i] == secretCode[i])
+                for (int i = 0; i < userColors.Count; i++)
                 {
-                    SetLabelBorder(i, Colors.DarkRed);
+                    if (userColors[i] == secretCode[i])
+                    {
+                        SetLabelBorder(i, Colors.DarkRed);
+                    }
+                    else if (secretCode.Contains(userColors[i]))
+                    {
+                        SetLabelBorder(i, Colors.Wheat);
+                    }
                 }
-                else if (secretCode.Contains(userColors[i]))
-                {
-                    SetLabelBorder(i, Colors.Wheat);
-                }
+            }
+            else
+            {
+                MessageBox.Show("Game over! je hebt de code niet gevonden binnen 10 pogingen");
             }
         }
         private void SetLabelBorder(int index, Color borderColor)
