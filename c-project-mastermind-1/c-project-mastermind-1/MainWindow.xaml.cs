@@ -147,7 +147,7 @@ namespace c_project_mastermind_1
         // met deze code gebeurt dit echter niet wanneer ik deze toetsen gebruik (ik vermoed mogelijks door de 'fn'-toets maar vind hier momenteel geen oplossing voor.
         private void ToggleDebug(object sender, KeyEventArgs e)
         {
-            if( e.Key == Key.F12)
+            if( e.Key == Key.F12 && Keyboard.Modifiers == ModifierKeys.Control)
             {
                 secretCodeTextBox.Visibility = Visibility.Visible;
             }
